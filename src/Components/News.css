@@ -133,7 +133,7 @@
 }
 
 .nav-link {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     /*1.5rem;*/
     font-weight: 300;
     color: #ddd;
@@ -178,7 +178,7 @@
     left: 0;
     padding: 1rem 4rem 1rem 1rem;
     font-family: "Bebas Neue", sans-serif;
-    font-size: clamp(1.5rem, 1.8cqi, 3rem);
+    font-size: clamp(1.5rem, 1.5cqi, 3rem);
     letter-spacing: .1rem;
     color: #fff;
     background-color: rgba(0, 0, 0, 0.7);
@@ -231,7 +231,7 @@
     left: 0;
     padding: 1rem 3rem 1rem 1rem;
     font-family: "Bebas Neue", sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     font-weight: 300;
     line-height: 1.4rem;
     background-color: rgba(0, 0, 0, 0.7);
