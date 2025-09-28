@@ -16,11 +16,18 @@ const News = () => {
     const [headline, setHeadline] = useState(null);
     const [news, setNews] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('general')
+    const [searchInput, setSearchInput] = useState("")
+    const [searchQuery, setSearchQuery] = useState("")
     const apiKey = import.meta.env.VITE_NEWS_APP_API_KEY
 
     useEffect(() => {
         const fetchNews = async () => {
-            const url = `https://gnews.io/api/v4/top-headlines?category=&{category}&lang=en&apikey=${apiKey}`;
+            let url = `https://gnews.io/api/v4/top-headlines?category=&{selectedCategory}&lang=en&apikey=${apiKey}`;
+
+            if (searchQuery) {
+                url = `https://gnews.io/api/v4/search?q=&{searchQuery}&lang=en&apikey=${apiKey}`;
+            }
+
             const response = await axios.get(url);
             const fetchedNews = response.data.articles
 
@@ -34,11 +41,17 @@ const News = () => {
             setNews(fetchedNews.slice(1, 7))
         }
         fetchNews();
-    }, [selectedCategory])
+    }, [selectedCategory, searchQuery])
 
     const handleCategoryClick = (e, category) => {
         e.preventDefault()
         setSelectedCategory(category)
+    }
+
+    const handleSearch = (e) => {
+        e.preventDefault()
+        setSearchQuery(searchInput)
+        setSearchInput("")
     }
 
     return (
@@ -46,8 +59,8 @@ const News = () => {
             <header className="news-header">
                 <h1 className="logo">News & Blogs</h1>
                 <div className="search-bar">
-                    <form>
-                        <input type="text" placeholder="Search News..." />
+                    <form onSubmit={handleSearch}>
+                        <input type="text" placeholder="Search News..." value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
                         <button type="submit">
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </button>
