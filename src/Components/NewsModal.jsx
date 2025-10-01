@@ -1,6 +1,7 @@
 import React from 'react'
 import demoImg from '../assets/images/demo.jpg'
 import './NewsModal.css'
+import './Modal.css'
 
 const NewsModal = ({show, article, onClose}) => {
 
@@ -16,7 +17,7 @@ const NewsModal = ({show, article, onClose}) => {
                 </span>
                 {article && (
                     <>
-                       <img src={article.image} alt={article.title} className='modal-image' />
+                        <img src={article.image} alt={article.title} className='modal-image' />
                         <h2 className="modal-title">{article.title}</h2>
                         <p className="modal-source">Source: {article.source.name}</p>
                         <p className="modal-date">{new Date(article.publishedAt).toLocaleString('en-US', {month: 'short', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'})}</p>

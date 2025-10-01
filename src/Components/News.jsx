@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Weather from './Weather'
 import Calendar from './Calendar'
 import NewsModal from './NewsModal'
+import Bookmarks from './Bookmarks'
 
 import './News.css'
 import userImg from '../assets/images/user.jpg'
@@ -21,6 +22,8 @@ const News = () => {
     const [searchQuery, setSearchQuery] = useState("")
     const [showModal, setShowModal] = useState(false)
     const [selectedArticle, setSelectedArticle] = useState(null)
+    const [bookmarks, setBookmarks] = useState([])
+    const [showBookmarksModal, setShowBookmarksModal] = useState(false)
 
     const apiKey = import.meta.env.VITE_NEWS_APP_API_KEY
 
@@ -43,6 +46,10 @@ const News = () => {
 
             setHeadline(fetchedNews[0])
             setNews(fetchedNews.slice(1, 7))
+
+            const savedBookmarks = JSON.parse(localStorage.getItem("bookmarks")) || []
+            setBookmarks(savedBookmarks)
+
         }
         fetchNews();
     }, [selectedCategory, searchQuery])
@@ -61,6 +68,18 @@ const News = () => {
     const handleArticleClick = (article) => {
         setSelectedArticle(article)
         setShowModal(true)
+    }
+
+    const handleBookmarkClick = (article) => {
+        setBookmarks((prevBookmarks) => {
+            const updatedBookmarks = prevBookmarks.find((bookmark) =>
+                bookmark.title === article.title) ? prevBookmarks.filter((bookmark) =>
+                bookmark.title !== article.title):[...prevBookmarks, article]
+
+            localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks))
+
+            return updatedBookmarks
+        })
     }
 
     return (
@@ -88,8 +107,8 @@ const News = () => {
                             {categories.map((category) => (
                                 <a href="#" key={category} className="nav-link" onClick={(e) => handleCategoryClick(e, category)}>{category}</a>
                             ))}
-                            <a href="#" className="nav-link">Bookmarks
-                                <i className="fa-regular fa-bookmark"></i>
+                            <a href="#" className="nav-link" onClick={() => setShowBookmarksModal(true)} >Bookmarks
+                                <i className="fa-solid fa-bookmark"></i>
                             </a>
                         </div>
                     </nav>
@@ -100,7 +119,13 @@ const News = () => {
                             <img src={headline.image || noImg} alt={headline.title} />
                             <h2 className="headline-title">
                                 {headline.title}
-                                <i className="fa-regular fa-bookmark bookmark"></i>
+                                <i className={`${bookmarks.some((bookmark) =>
+                                    bookmark.title === headline.title) ? "fa-solid" : "fa-regular"}
+                                    fa-bookmark bookmark`} onClick={(e) => {
+                                        e.stopPropagation()
+                                        handleBookmarkClick(headline)
+                                    }}>
+                                </i>
                             </h2>
                         </div>
                     )}
@@ -110,13 +135,23 @@ const News = () => {
                                 <img src={article.image || noImg} alt={article.title} />
                                 <h3>
                                     {article.title}
-                                    <i className="fa-regular fa-bookmark bookmark"></i>
+                                    <i className={`${bookmarks.some((bookmark) =>
+                                        bookmark.title === article.title) ? "fa-solid" : "fa-regular"}
+                                        fa-bookmark bookmark`} onClick={(e) => {
+                                            e.stopPropagation()
+                                            handleBookmarkClick(article)
+                                        }}>
+                                    </i>
                                 </h3>
                             </div>
                         ))}
                     </div>
                 </div>
                 <NewsModal show={showModal} article={selectedArticle} onClose={() => setShowModal(false)} />
+                <Bookmarks show={showBookmarksModal} bookmarks={bookmarks}
+                    onClose={() => setShowBookmarksModal(false)}
+                    onSelectedArticle={handleArticleClick}
+                    onDeleteBookmark={handleBookmarkClick} />
                 <div className="my-blogs">My Blogs</div>
                 <div className="weather-calendar">
                     <Weather />
