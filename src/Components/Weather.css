@@ -48,6 +48,8 @@
     border-bottom: 0.1rem solid #aaa;
     font-size: 1.3rem;
     color: #ddd;
+    padding-left: 1rem;
+    padding-right: 4rem;
 }
 
 .search-location i {
@@ -74,9 +76,32 @@
     color: #ffc87c;
 }
 
+.weather-data i.bxs-cloud {
+    color: #fff;
+}
+
+.weather-data i.bxs-cloud-rain {
+    color: #5fd1f9;
+}
+
+.weather-data i.bxs-cloud-lightning {
+    color: #154abd;
+}
+
+.weather-data i.bxs-cloud-snow {
+    color: #52e5e7;
+}
+
 .weather-type, .temp {
     font-family: "Comfortaa", sans-serif;
     font-size: 1.5rem;
     color: #ddd;
     line-height: 0.8;
+}
+
+.not-found {
+    font-family: "Comfortaa", sans-serif;
+    font-size: 1.6rem;
+    color: #ddd;
+    margin-bottom: 8rem;
 }
