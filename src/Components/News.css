@@ -13,7 +13,6 @@
     width: 100%;
     min-height: 7rem;
     background-color: #111214;
-    border-radius: 1rem 1rem 0 0;
 
     display: flex;
     justify-content: space-between;
@@ -142,6 +141,7 @@
     letter-spacing: 0.1rem;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .nav-link i {
@@ -258,5 +258,4 @@
     width: 100%;
     min-height: 5rem;
     background-color: #111214;
-    border-radius: 0 0 1rem 1rem;
 }
