@@ -158,9 +158,13 @@ const News = () => {
                     <Calendar />
                 </div>
             </div>
-            <footer className="news-footer">Footer
-                {/* <div className="news-footer_text">News & Blogs App</div>
-                <div className="news-footer_rights">All Rights Reserved By Code And Create</div> */}
+            <footer className="news-footer">
+                <p>
+                    <span>News & Blogs App</span>
+                </p>
+                <p>
+                    &copy; All Rights Reserved By Code And Create
+                </p>
             </footer>
         </div>
     )
