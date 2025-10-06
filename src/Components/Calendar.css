@@ -70,7 +70,7 @@
 
 .days span {
     width: calc(100% / 7);
-    aspect-ratio: 1;
+    aspect-ratio: 1.5;
     font-size: 1rem;
     color: #ddd;
     display: flex;
